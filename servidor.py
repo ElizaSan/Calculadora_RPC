@@ -4,25 +4,55 @@ import calculadora_pb2
 import calculadora_pb2_grpc
 
 class CalculadoraServicer(calculadora_pb2_grpc.CalculadoraServicer):
-    def Suma(self, request, context):
-        resultado = request.a + request.b
-        return calculadora_pb2.Resultado(valor=resultado)
+
+    
+    def Sumar(self, request, context):
+        try:
+            resultado = request.a + request.b
+            return calculadora_pb2.Resultado(valor=resultado)
+        except Exception as e:
+            print(f"Error procesando la solicitud: {e}")
+            context.set_details("Error interno al sumar.")
+            context.set_code(grpc.StatusCode.INTERNAL)
+            return calculadora_pb2.Resultado()
+
+
     
     def Resta(self, request, context):
-        resultado = request.a - request.b
-        return calculadora_pb2.Resultado(valor=resultado)
+        try:
+            resultado = request.a - request.b
+            return calculadora_pb2.Resultado(valor=resultado)
+        except Exception as e:
+            print(f"Error procesando la solicitud: {e}")
+            context.set_details(["Error interno al restar."])
+            context.set_code(grpc.StatusCode.INTERNAL)
+            return calculadora_pb2.Resultado()
+
+
 
     def Multiplicacion(self, request, context):
-        resultado = request.a * request.b
-        return calculadora_pb2.Resultado(valor=resultado)
+        try:
+            resultado = request.a * request.b
+            return calculadora_pb2.Resultado(valor=resultado)
+        except Exception as e:
+            print(f"Error procesando la solicitud: {e}")
+            context.set_details("Error interno al multiplicar.")
+            context.set_code(grpc.StatusCode.INTERNAL)
+            return calculadora_pb2.Resultado()
     
     def Division(self, request, context):
-        if request.b == 0:
-            context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
-            context.set_details("No se puede dividir entre cero")
-            return calculadora_pb2.Resultado(valor=0)
-        resultado = request.a / request.b
-        return calculadora_pb2.Resultado(valor=int(resultado))  # O usar float si lo prefieres
+        try:
+            if request.b == 0:
+                context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
+                context.set_details("No se puede dividir entre cero")
+                return calculadora_pb2.Resultado(valor=0)
+            resultado = request.a / request.b
+            return calculadora_pb2.Resultado(valor=int(resultado))  
+        except Exception as e:
+            print(f"Error procesando la solicitud: {e}")
+            context.set_details("Error interno al multiplicar.")
+            context.set_code(grpc.StatusCode.INTERNAL)
+            return calculadora_pb2.Resultado()
 
 
 def servir():

@@ -1,4 +1,4 @@
-Práctica Sistemas Distribuidos
+**Práctica RPC - Sistemas Distribuidos**
 
 Instrucciones: Implementar una calculadora con cuatro operaciones (suma, resta, multiplicación, división) que se ejecute con:
 
@@ -8,7 +8,7 @@ Instrucciones: Implementar una calculadora con cuatro operaciones (suma, resta, 
 * Las entradas de los datos los ingresa el usuario (cliente)
 
 
-Esta práctica se elaboro utilizando Python con gRPC
+Esta práctica se elaboró utilizando Python con gRPC
 
 **Comando para actualizar el código calculadora.protoc**
 python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. calculadora.proto
