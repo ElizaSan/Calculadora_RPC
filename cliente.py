@@ -29,7 +29,7 @@ def main():
     stub = calculadora_pb2_grpc.CalculadoraStub(canal)
 
     while True:
-        mostrar_menu()
+        
         opcion = mostrar_menu()
 
         if opcion == "0":

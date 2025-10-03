@@ -6,7 +6,7 @@ import calculadora_pb2_grpc
 class CalculadoraServicer(calculadora_pb2_grpc.CalculadoraServicer):
 
     
-    def Sumar(self, request, context):
+    def Suma(self, request, context):
         try:
             resultado = request.a + request.b
             return calculadora_pb2.Resultado(valor=resultado)
@@ -24,7 +24,7 @@ class CalculadoraServicer(calculadora_pb2_grpc.CalculadoraServicer):
             return calculadora_pb2.Resultado(valor=resultado)
         except Exception as e:
             print(f"Error procesando la solicitud: {e}")
-            context.set_details(["Error interno al restar."])
+            context.set_details("Error interno al restar.")
             context.set_code(grpc.StatusCode.INTERNAL)
             return calculadora_pb2.Resultado()
 
@@ -50,7 +50,7 @@ class CalculadoraServicer(calculadora_pb2_grpc.CalculadoraServicer):
             return calculadora_pb2.Resultado(valor=int(resultado))  
         except Exception as e:
             print(f"Error procesando la solicitud: {e}")
-            context.set_details("Error interno al multiplicar.")
+            context.set_details("Error interno al dividir.")
             context.set_code(grpc.StatusCode.INTERNAL)
             return calculadora_pb2.Resultado()
 
