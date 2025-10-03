@@ -2,13 +2,16 @@ import grpc
 from concurrent import futures
 import calculadora_pb2
 import calculadora_pb2_grpc
+import time
 
 class CalculadoraServicer(calculadora_pb2_grpc.CalculadoraServicer):
 
     
     def Suma(self, request, context):
         try:
+            print(f"Solicitud de suma recibida: {request.a} + {request.b}")
             resultado = request.a + request.b
+            time.sleep(5)  
             return calculadora_pb2.Resultado(valor=resultado)
         except Exception as e:
             print(f"Error procesando la solicitud: {e}")
@@ -20,7 +23,9 @@ class CalculadoraServicer(calculadora_pb2_grpc.CalculadoraServicer):
     
     def Resta(self, request, context):
         try:
+            print(f"Solicitud de resta recibida: {request.a} + {request.b}")
             resultado = request.a - request.b
+            time.sleep(5) 
             return calculadora_pb2.Resultado(valor=resultado)
         except Exception as e:
             print(f"Error procesando la solicitud: {e}")
@@ -32,6 +37,7 @@ class CalculadoraServicer(calculadora_pb2_grpc.CalculadoraServicer):
 
     def Multiplicacion(self, request, context):
         try:
+            print(f"Solicitud de multiplicacion recibida: {request.a} + {request.b}")
             resultado = request.a * request.b
             return calculadora_pb2.Resultado(valor=resultado)
         except Exception as e:
@@ -41,13 +47,15 @@ class CalculadoraServicer(calculadora_pb2_grpc.CalculadoraServicer):
             return calculadora_pb2.Resultado()
     
     def Division(self, request, context):
+        print(f"Solicitud de suma recibida: {request.a} + {request.b}")
         try:
             if request.b == 0:
                 context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
                 context.set_details("No se puede dividir entre cero")
                 return calculadora_pb2.Resultado(valor=0)
             resultado = request.a / request.b
-            return calculadora_pb2.Resultado(valor=int(resultado))  
+            time.sleep(5) 
+            return calculadora_pb2.Resultado(valor=resultado)  
         except Exception as e:
             print(f"Error procesando la solicitud: {e}")
             context.set_details("Error interno al dividir.")
